@@ -1,14 +1,9 @@
-//import { Query as TraineeQuery } from './trainee';
-import { me } from './user';
-import {Trainee} from './trainee';
-// const resolvers = {
-//     ...UserQuery,
-//     ...TraineeQuery,
-// };
+import { Query as userQuery } from './user';
+import {Query as traineeQuery} from './trainee';
 const resolvers = {
-    Query: {
-        me,
-        Trainee
+    Query:{
+    ...userQuery,
+    ...traineeQuery
     }
-}
+};
 export default resolvers;

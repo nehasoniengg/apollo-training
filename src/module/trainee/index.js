@@ -1,2 +1,1 @@
-import {Trainee} from './query'
-export {Trainee}
+export {default as Query} from './query';

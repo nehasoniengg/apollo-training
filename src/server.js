@@ -1,27 +1,29 @@
 
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
+import express from 'express';
 import configuration from './config/configuration';
-import  { ApolloServer} from 'apollo-server-express';
-import  express from 'express';
-import typeDefs from './index';
-import resolvers from './module/index'
-// const server = new ApolloServer({
-//        schema
-//      });
-//      const app = express();
-//      server.applyMiddleware({ app });
-//      const port = configuration.port;
-// console.log('configuration:::::',port);
-// app.listen({ port }, () =>
-//   console.log(`🚀 Server ready at http://localhost:${port},${server.graphqlPath}`)
-// );
-const server = new ApolloServer({
-      typeDefs,
-      resolvers
-    });
+import schema from '.';
+import { TraineeApi, UserApi } from './services/index';
+
+const schemaUser = makeExecutableSchema(schema);
 const app = express();
+const server = new ApolloServer({
+  schema: schemaUser,
+  dataSources: () => {
+    return {
+      traineeApi: new TraineeApi(),
+      userApi: new UserApi()
+    };
+  },
+  context: ({ req }) => {
+    return {
+      token: req.headers.authorization
+    }
+  }
+});
 server.applyMiddleware({ app });
 const port = configuration.port;
 app.listen({ port }, () =>
-  console.log(`🚀 Server ready at http://localhost:${port},${server.graphqlPath}`)
+  console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
 );
 
