@@ -10,7 +10,6 @@ class TraineeApi extends RESTDataSource {
   }
   async getTraine() {
     const data = await this.get(`trainee`);
-    console.log("data:::::::::", data);
     return data;
   }
 }
