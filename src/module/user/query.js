@@ -1,16 +1,7 @@
-const user = {
-      name: 'user1',
+const Query = {
+    me: async (parent, args, { dataSources }, input) => {
+        const data = await dataSources.UserApi.me();
+        return data;
     }
-
-  
-   const me = (perent, args,context,input) => {
-            console.log('inside user resolvers::');
-            return user;
-        }
-    
-    export  {me};
-  
-  
-
-
- 
+}
+export default Query;
