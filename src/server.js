@@ -1,19 +1,15 @@
+
+
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 import express from 'express';
 import configuration from './config/configuration';
-import schema from './index'
+import schema from '.';
 import { TraineeApi, UserApi } from './services/index';
-import createServer from 'https';
-import http from 'http';
-// import { typeDefs,resolvers} from './index';
-// import { errorHandler } from '../src/lib/errorHandler';
 
-console.log('error message :::::::::',schema);
+const schemaUser = makeExecutableSchema(schema);
 const app = express();
-console.log('::::inside server::::::::');
 const server = new ApolloServer({
-  schema: makeExecutableSchema(schema),
-  // typeDefs, resolvers ,
+  schema: schemaUser,
   dataSources: () => {
     return {
       traineeApi: new TraineeApi(),
