@@ -1,0 +1,11 @@
+# type Mutation {
+#   post(id: String!, 
+#        name: String!): User!
+# }
+
+
+type User {
+    id: String !,
+    name: String!
+
+}

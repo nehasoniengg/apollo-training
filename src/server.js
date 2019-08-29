@@ -1,76 +1,47 @@
-
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
+import express from 'express';
 import configuration from './config/configuration';
-import  { ApolloServer} from 'apollo-server-express';
-import  express from 'express';
+import schema from './index'
+import { TraineeApi, UserApi } from './services/index';
+import createServer from 'https';
+import http from 'http';
+// import { typeDefs,resolvers} from './index';
+// import { errorHandler } from '../src/lib/errorHandler';
 
-
-const books = [
-    {
-      title: 'Harry Potter and the Chamber of Secrets',
-      author: 'J.K. Rowling',
-    },
-    {
-      title: 'Jurassic Park',
-      author: 'Michael Crichton',
-    },
-  ];
-
-
-const typeDefs = `
-    type Book {
-        title : String !
-        author : String !
-    }
-    type Query {
-        books : [Book !] !
-    }
-
-`
-const resolvers = {
-  Query: {
-    books: () => books,
-  },
-};
- 
-const server = new ApolloServer({ typeDefs, resolvers });
- 
+console.log('error message :::::::::',schema);
 const app = express();
-console.log('checked :::',server.applyMiddleware({ app }));
+console.log('::::inside server::::::::');
+const server = new ApolloServer({
+  schema: makeExecutableSchema(schema),
+  // typeDefs, resolvers ,
+  dataSources: () => {
+    return {
+      traineeApi: new TraineeApi(),
+      userApi: new UserApi()
+    };
+  },
+  context: ({ req, connection }) => {
+    if (connection) {
 
+      return connection.context;
+
+    } else {
+      const token = req.headers.authorization || "";
+
+      return { token };
+    }
+  }
+});
+server.applyMiddleware({ app });
 const port = configuration.port;
-console.log('configuration:::::',port);
-app.listen({ port }, () =>
-  console.log(`🚀 Server ready at http://localhost:${port},${server.graphqlPath}`)
-);
+
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+// console.log('server check:::::::::',server.installSubscriptionHandlers);
 
 
+httpServer.listen({ port }, () => {
+  console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
+  console.log(`🚀 Subscriptions ready at ws://localhost:${port}${server.subscriptionsPath}`)
 
-// const { ApolloServer, gql } = require('apollo-server');
-// const express = require('express');
-
-// // The GraphQL schema
-// const typeDefs = gql`
-//   type Query {
-//     hello: String
-//     mockedString: String
-//   }
-// `;
-
-// // A map of functions which return data for the schema.
-// const resolvers = {
-//   Query: {
-//     hello : async () => {
-//         const data = await fetch('https://fourtonfish.com/hellosalut/?mode=auto')
-//         console.log('data',data)
-//     }
-//   },
-// };
-
-// const server = new ApolloServer({
-//   typeDefs,
-//   resolvers
-// });
-// server.listen({ port: 8000 },()=>{
-//     console.log("server up")
-// })
-
+})

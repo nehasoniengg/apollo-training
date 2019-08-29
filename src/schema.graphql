@@ -1,0 +1,21 @@
+type Query {
+    getTrainee: [Trainee]
+    me: User!
+    
+},
+type Mutation {
+    addTrainee(data: createTrainee): createTraining
+   updateTrainee(data: modifyTrainee): createTraining ,
+    # deleteTrainee:(data: delTrainee) : training , 
+    # Users: [users ] : User 
+}
+type Subscription{
+    addTrainee: createTraining
+}
+
+
+
+
+ 
+
+
