@@ -9,7 +9,7 @@ class TraineeApi extends RESTDataSource {
     request.headers.set('Authorization', this.context.token);
   }
   async getTraine() {
-<<<<<<< HEAD
+
     this.get(`trainee`).then(res => {
       console.log('inside trainee file:::',res);
     })
@@ -50,10 +50,5 @@ class TraineeApi extends RESTDataSource {
 
     }
 
-=======
-    const data = await this.get(`trainee`);
-    return data;
-  }
-}
->>>>>>> 8d5b0fcb198afd36245b0d8ba068b25009b774e3
+
 export default TraineeApi;

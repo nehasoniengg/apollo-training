@@ -17,14 +17,14 @@ import { from } from 'apollo-link';
         
     return data;
   },
- updateTrainee: async (parent,args,{dataSources},input) =>{
-   console.log('args is update:::',args);
-   const trainee1 = {
-     _id:args.data._id,
-   }
-  const data =  await dataSources.traineeApi.updateTrainee(trainee1);
-  return data;
-} ,
+//  updateTrainee: async (parent,args,{dataSources},input) =>{
+//    console.log('args is update:::',args);
+//    const trainee1 = {
+//      _id:args.data._id,
+//    }
+//   const data =  await dataSources.traineeApi.updateTrainee(trainee1);
+//   return data;
+//} ,
 // deleteTrainee: async (parent,args,{dataSources},input) =>{
 //   const data =  await dataSources.traineeApi.getTraine(args);
 //   return data;

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Query
 type Trainee {
     count: String ,
@@ -81,10 +81,6 @@ type customs{
       updatedAt: String,
 
 }
- 
-=======
-type Trainee {
-      name: String !
-  }
-  
->>>>>>> 8d5b0fcb198afd36245b0d8ba068b25009b774e3
+type updates{
+    _id: String,
+}

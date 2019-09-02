@@ -4,7 +4,6 @@ class UserApi extends RESTDataSource {
     constructor() {
         super();
         this.baseUrl = configuration.service_url
-<<<<<<< HEAD
         //console.log('user :::::::',this.baseUrl);
     }
     willSendRequest(request) {
@@ -22,8 +21,5 @@ class UserApi extends RESTDataSource {
         return this.get(`user/me`);
       }
     
-=======
-    }
->>>>>>> 8d5b0fcb198afd36245b0d8ba068b25009b774e3
 }
 export default UserApi;

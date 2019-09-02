@@ -5,6 +5,7 @@ import express from 'express';
 import configuration from './config/configuration';
 import schema from '.';
 import { TraineeApi, UserApi } from './services/index';
+import { http , createServer} from 'http';
 
 const schemaUser = makeExecutableSchema(schema);
 const app = express();
@@ -31,7 +32,7 @@ const server = new ApolloServer({
 server.applyMiddleware({ app });
 const port = configuration.port;
 
-const httpServer = http.createServer(app);
+const httpServer = createServer(app);
 server.installSubscriptionHandlers(httpServer);
 // console.log('server check:::::::::',server.installSubscriptionHandlers);
 

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # type Mutation {
 #   post(id: String!, 
 #        name: String!): User!
@@ -6,11 +6,6 @@
 
 
 type User {
-    id: String !,
-    name: String!
-
-=======
-type User {
-    name: String!
->>>>>>> 8d5b0fcb198afd36245b0d8ba068b25009b774e3
+    id: String ,
+    name: String
 }

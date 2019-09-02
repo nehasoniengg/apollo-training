@@ -1,27 +1,14 @@
 type Query {
-<<<<<<< HEAD
     getTrainee: [Trainee]
     me: User!
     
-},
+}
 type Mutation {
     addTrainee(data: createTrainee): createTraining
-   updateTrainee(data: modifyTrainee): createTraining ,
+  updateTrainee(data: modifyTrainee): updates,
     # deleteTrainee:(data: delTrainee) : training , 
     # Users: [users ] : User 
 }
 type Subscription{
     addTrainee: createTraining
 }
-
-
-
-
- 
-
-
-=======
-    getTrainee: [Trainee!]!
-    me: User!
-}
->>>>>>> 8d5b0fcb198afd36245b0d8ba068b25009b774e3
