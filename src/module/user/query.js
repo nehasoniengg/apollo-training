@@ -1,8 +1,6 @@
 const Query = {
     me: async (parent, args, { dataSources }, input) => {
-        const data = await dataSources.UserApi.me();
-
-        console.log('user:::::::',data);
+        const data = await dataSources.userApi.userMe();
         return data;
     }
 }

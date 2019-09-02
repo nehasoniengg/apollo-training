@@ -3,23 +3,14 @@ import configuration from '../../config/configuration';
 class UserApi extends RESTDataSource {
     constructor() {
         super();
-        this.baseUrl = configuration.service_url
-        //console.log('user :::::::',this.baseUrl);
+        this.baseURL = configuration.service_url
     }
     willSendRequest(request) {
         request.headers.set('Authorization', this.context.token);
       }
-    //   async me() {
-    //     const data = await this.get(`user/me`);
-    //         return data;
-    //   }
-
-    async me() {
-        this.get(`user/me`).then(res => {
-          console.log('user me :::::::::',res);
-        })
-        return this.get(`user/me`);
-      }
-    
+      async userMe() {
+        const data = await this.get(`user/me`);
+        return data;
+      }    
 }
 export default UserApi;

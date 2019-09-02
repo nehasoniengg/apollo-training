@@ -4,8 +4,7 @@ type Trainee {
     count: String ,
     data: [profile],
     message: String,
-    status: String,
-    
+    status: String,    
 }
 type profile{
       _id: String,
@@ -19,7 +18,7 @@ type profile{
       createdAt: String,
       updatedAt: String,
 }
-    #Mutation
+ #Mutation
 type createTraining{
     data: nameuser,
     message: String,
@@ -44,7 +43,6 @@ type custom{
       name: String,
       email: String,
       password:String
-    #   postTypes:  postType
   }
   input modifyTrainee{
     _id: String,
@@ -55,9 +53,6 @@ type custom{
   input delTrainee {
       _id: String
   }
-
-
-
 # Subscription
 type postType{
     count: String ,

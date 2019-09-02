@@ -1,11 +1,19 @@
 
-# type Mutation {
-#   post(id: String!, 
-#        name: String!): User!
-# }
-
-
-type User {
-    id: String ,
-    name: String
+type  User{
+    data: info,
+    message: String,
+    status: String,    
+}
+type info{
+      _id: String,
+      createdBy: String,
+      updatedBy: String,
+      role: String,
+      name: String,
+      email: String,
+      password: String,
+      originalId: String,
+      createdAt: String,
+      updatedAt: String,
+      v:Int
 }

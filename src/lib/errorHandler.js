@@ -1,5 +1,4 @@
-import  {AuthenticationError, ForbiddenError ,UserInputError , apolloError }
- from  'apollo-server-express'; 
+import  {AuthenticationError, ForbiddenError ,UserInputError , apolloError } from 'apollo-server-express'; 
 const error_code = {
     BAD_REQUEST_ERROR: 400,
     UNAUTHENTICATED_ERROR: 401,
@@ -21,11 +20,8 @@ class errorHandler{
         else if (status== error_code.INTERNAL_SERVER_ERROR){
             this.apolloError(error)
         }
-    }    
-    
-     
-    
-    auth(err){
+    }  
+     auth(err){
    throw new AuthenticationError(err);
       }
 
