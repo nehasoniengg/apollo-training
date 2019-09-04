@@ -1,4 +1,4 @@
-import { Query as userQuery } from './user';
+import { Query as userQuery, Subscription as userSubscription } from './user';
 import {Query as traineeQuery , Mutation as traineeMutation ,Subscription as traineeSubscription} from './trainee';
 const resolvers = {
     Query:{
@@ -9,7 +9,8 @@ const resolvers = {
     ...traineeMutation
      },
       Subscription :{
-    ...traineeSubscription
+    ...traineeSubscription,
+    ...userSubscription
       },  
     };
 export default resolvers;

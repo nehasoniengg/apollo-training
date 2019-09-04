@@ -1,11 +1,16 @@
 type Query {
     getTrainee: [Trainee]
-    me: User    
+    me: User 
+    login(data: loginReq):adminData   
 }
 type Mutation {
     addTrainee(data: createTrainee): createTraining
-  updateTrainee(data: modifyTrainee): updates,
+    updateTrainee(input: modifyTrainee): updates
+    deleteTrainee(input: delTrainee): deletes
     }
 type Subscription{
     addTrainee: createTraining
+    updateTrainee: updates
+    deleteTrainee: deletes
+    login: adminData
 }

@@ -4,6 +4,7 @@ type  User{
     message: String,
     status: String,    
 }
+
 type info{
       _id: String,
       createdBy: String,
@@ -15,5 +16,22 @@ type info{
       originalId: String,
       createdAt: String,
       updatedAt: String,
-      v:Int
+      v:Int,
 }
+
+ input loginReq{
+     email: String,
+     password: String,
+ }
+
+ type adminData{
+     data: data ,
+    message: String,
+    status: String, 
+}
+
+ type data{
+     user: info,
+     password: String,
+     token: String,
+ }
