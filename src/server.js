@@ -4,6 +4,7 @@ import configuration from './config/configuration';
 import schema from '.';
 import { TraineeApi, UserApi } from './services/index';
 import { http , createServer} from 'http';
+import FormatError from './lib/formaterror'
 
 const schemaUser = makeExecutableSchema(schema);
 const app = express();
@@ -22,6 +23,11 @@ const server = new ApolloServer({
       const token = req.headers.authorization || "";
       return { token };
     }
+  },
+  formatError: (err) => {
+    const formatError = new FormatError();
+    const error = formatError.customError(err);
+    return error;
   }
 });
 server.applyMiddleware({ app });

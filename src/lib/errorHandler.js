@@ -5,39 +5,45 @@ const error_code = {
     FORBIDDEN_ERROR: 403,
     INTERNAL_SERVER_ERROR: 500,
 }
-class errorHandler{
+class errorHandler {
     constructor(err){
-    const {status , error} = err;
-    console.log('error :::::',status);
-    if(status == error_code.BAD_REQUEST_ERROR){
-        console.log('inside error:::::::',error);
-        this.UserInputError(error.message)
+        console.log('error handler:::::',err)
+    const {code , msg:message} = err.error;
+    if(code == error_code.BAD_REQUEST_ERROR){
+        this.userInputError(message)
     }
-        else if (status == error_code.UNAUTHENTICATED_ERROR){
-              this.AuthenticationError(error.message)
+        else if (code == error_code.UNAUTHENTICATED_ERROR){
+              this.authenticationError(message)
         }
-        else if (status == error_code.FORBIDDEN_ERROR){
-            this.ForbiddenError(error.message)
+        else if (code == error_code.FORBIDDEN_ERROR){
+            this.forbiddenError(message)
         }
-        else if (status == error_code.INTERNAL_SERVER_ERROR){
-            this.apolloError(error.message)
+        else {
+            this.apolloError(message)
         }
-    }  
+    }
+
      auth(err){
+   //      formatError(err);
    throw new AuthenticationError(err);
       }
-
     forbidden(err){
         throw new ForbiddenError (err);
+    //formatError(err);
         }
-
    userInput(err){
-            throw new UserInputError (err);
-   }
-   
-   
+      throw new UserInputError (err);
+    //formatError(err);
+   } 
    apolloError(err){
-        throw new ApolloError (err);
+       throw new ApolloError (err);
+    //formatError(err);
+
+   }
+
 }
-}
+
+
+
+
 export default errorHandler ; 
