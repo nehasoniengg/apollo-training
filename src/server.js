@@ -1,76 +1,40 @@
-
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
+import express from 'express';
 import configuration from './config/configuration';
-import  { ApolloServer} from 'apollo-server-express';
-import  express from 'express';
+import schema from '.';
+import { TraineeApi, UserApi } from './services/index';
+import { http , createServer} from 'http';
+import FormatError from './lib/formaterror'
 
-
-const books = [
-    {
-      title: 'Harry Potter and the Chamber of Secrets',
-      author: 'J.K. Rowling',
-    },
-    {
-      title: 'Jurassic Park',
-      author: 'Michael Crichton',
-    },
-  ];
-
-
-const typeDefs = `
-    type Book {
-        title : String !
-        author : String !
-    }
-    type Query {
-        books : [Book !] !
-    }
-
-`
-const resolvers = {
-  Query: {
-    books: () => books,
-  },
-};
- 
-const server = new ApolloServer({ typeDefs, resolvers });
- 
+const schemaUser = makeExecutableSchema(schema);
 const app = express();
-console.log('checked :::',server.applyMiddleware({ app }));
-
+const server = new ApolloServer({
+  schema: schemaUser,
+  dataSources: () => {
+    return {
+      traineeApi: new TraineeApi(),
+      userApi: new UserApi()
+    };
+  },
+  context: ({ req, connection }) => {
+    if (connection) {
+      return connection.context;
+    } else {
+      const token = req.headers.authorization || "";
+      return { token };
+    }
+  },
+  formatError: (err) => {
+    const formatError = new FormatError();
+    const error = formatError.customError(err);
+    return error;
+  }
+});
+server.applyMiddleware({ app });
 const port = configuration.port;
-console.log('configuration:::::',port);
-app.listen({ port }, () =>
-  console.log(`🚀 Server ready at http://localhost:${port},${server.graphqlPath}`)
-);
-
-
-
-// const { ApolloServer, gql } = require('apollo-server');
-// const express = require('express');
-
-// // The GraphQL schema
-// const typeDefs = gql`
-//   type Query {
-//     hello: String
-//     mockedString: String
-//   }
-// `;
-
-// // A map of functions which return data for the schema.
-// const resolvers = {
-//   Query: {
-//     hello : async () => {
-//         const data = await fetch('https://fourtonfish.com/hellosalut/?mode=auto')
-//         console.log('data',data)
-//     }
-//   },
-// };
-
-// const server = new ApolloServer({
-//   typeDefs,
-//   resolvers
-// });
-// server.listen({ port: 8000 },()=>{
-//     console.log("server up")
-// })
-
+const httpServer = createServer(app);
+server.installSubscriptionHandlers(httpServer);
+httpServer.listen({ port }, () => {
+  console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
+  console.log(`🚀 Subscriptions ready at ws://localhost:${port}${server.subscriptionsPath}`)
+})

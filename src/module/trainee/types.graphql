@@ -1,0 +1,105 @@
+
+# Query
+type Trainee {
+    count: String ,
+    data: [profile],
+    message: String,
+    status: String,    
+}
+type profile{
+      _id: String,
+      createdBy: String,
+      updatedBy: String,
+      role: String,
+      name: String,
+      email: String,
+      password: String,
+      originalId: String,
+      createdAt: String,
+      updatedAt: String,
+}
+ #Mutation
+type createTraining{
+    data: nameuser,
+    message: String,
+    status: String,
+}
+type nameuser{
+      name: custom,
+} 
+type custom{
+    _id: String,
+      createdBy: String,
+      updatedBy: String,
+      role: String,
+      name: String,
+      email: String,
+      password: String,
+      originalId: String,
+      createdAt: String,
+      updatedAt: String,
+}
+  input createTrainee {
+      name: String,
+      email: String,
+      password:String
+  }
+  input modifyTrainee{
+    id: String,
+    dataToUpdate: dataToUpdate
+  }
+  input dataToUpdate{
+      name: String,
+      email: String
+  }
+
+  input delTrainee {
+      id: String,
+        }
+  type updates{
+       data: traineeData,
+    message: String,
+    status: String,
+}
+type traineeData{
+      id: String,
+      dataToUpdate: updatedData
+} 
+type updatedData{
+    name:String,
+    email: String
+}
+type deletes{
+    data: deleteData,
+    message: String,
+    status: String,
+}
+type deleteData{
+    id: String
+}
+
+# Subscription
+type postType{
+    count: String ,
+    data: entities,
+    message: String,
+    status: String,
+}
+type entities{
+    name: customs ,
+}
+type customs{
+       _id: String,
+      createdBy: String,
+      updatedBy: String,
+      role: String,
+      name: String,
+      email: String,
+      password: String,
+      originalId: String,
+      createdAt: String,
+      updatedAt: String,
+}
+type updates{
+    _id: String,
+}
